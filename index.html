@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0a1f'/%3E%3Crect x='8' y='8' width='48' height='48' rx='10' fill='none' stroke='%237c5cff' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='monospace' font-size='20' font-weight='bold' text-anchor='middle' fill='%23c6ff4a'%3EHC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Haider Console — 100 distinct retro games, infinite levels, playable everywhere.">
+<title>HAIDER CONSOLE — 100 Games</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><span class="orb orb-a"></span><span class="orb orb-b"></span><span class="grid-fade"></span></div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-chip"><span>HC</span></div>
+      <div class="brand-copy">
+        <div class="brand-name">HAIDER</div>
+        <div class="brand-sub">CONSOLE <b>/</b> 100</div>
+      </div>
+    </div>
+    <div class="status">
+      <span class="stat"><i class="dot dot-live"></i> SYSTEM ONLINE</span>
+      <span class="stat stat-hide-sm">100 CARTRIDGES</span>
+      <span class="stat stat-hide-sm">∞ LEVELS</span>
+    </div>
+    <div class="top-actions">
+      <button class="pill" id="soundBtn" type="button" aria-label="Toggle sound"><span class="pill-ico">♪</span><span id="soundLabel">SOUND ON</span></button>
+      <button class="pill pill-primary" id="randomBtn" type="button"><span class="pill-ico">✦</span> SURPRISE ME</button>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="console-wrap" aria-label="Game console">
+      <div class="console" id="console">
+        <div class="console-top">
+          <div class="model">MODEL HC–100 <span>//</span> RETRO SYSTEM</div>
+          <div class="power"><span class="power-ring"></span><span class="power-label">PWR</span></div>
+        </div>
+
+        <div class="bezel">
+          <div class="bezel-notch"></div>
+          <div class="screen" id="screen">
+            <canvas id="game" width="480" height="320" aria-label="Game screen"></canvas>
+            <div class="crt" aria-hidden="true"></div>
+            <div class="vignette" aria-hidden="true"></div>
+
+            <div class="hud" id="hud">
+              <div class="hud-row">
+                <div class="hud-game" id="hudGame">NO CARTRIDGE</div>
+                <div class="hud-level" id="hudLevel">LV 01</div>
+              </div>
+              <div class="hud-row hud-row-2">
+                <div class="hud-score"><span>SCORE</span><b id="hudScore">000000</b></div>
+                <div class="hud-right">
+                  <div class="hud-lives" id="hudLives"></div>
+                  <div class="hud-hint" id="hudHint">SELECT A GAME TO BEGIN</div>
+                </div>
+              </div>
+              <div class="mod-chips" id="modChips"></div>
+              <div class="progress"><i id="progressFill"></i></div>
+            </div>
+
+            <div class="overlay" id="overlay">
+              <div class="overlay-card" id="overlayCard">
+                <div class="overlay-icon" id="overlayIcon">🎮</div>
+                <div class="overlay-kicker" id="overlayKicker">HAIDER CONSOLE</div>
+                <h1 class="overlay-title" id="overlayTitle">READY?</h1>
+                <p class="overlay-desc" id="overlayDesc">Pick a cartridge from the library and press START.</p>
+                <div class="overlay-actions" id="overlayActions">
+                  <button class="btn btn-go" id="primaryBtn" type="button">START</button>
+                  <button class="btn btn-ghost" id="secondaryBtn" type="button">LIBRARY</button>
+                </div>
+                <div class="overlay-foot" id="overlayFoot">ARROWS / WASD + SPACE &nbsp;·&nbsp; TOUCH CONTROLS BELOW</div>
+              </div>
+            </div>
+
+            <div class="toast" id="toast"></div>
+          </div>
+          <div class="bezel-label"><span>HAIDER</span><span class="bezel-dots">•••</span><span>COLOR SYSTEM</span></div>
+        </div>
+
+        <div class="deck">
+          <div class="dpad" aria-label="Direction pad">
+            <button class="dpad-btn dpad-up" data-key="ArrowUp" aria-label="Up">▲</button>
+            <button class="dpad-btn dpad-left" data-key="ArrowLeft" aria-label="Left">◀</button>
+            <button class="dpad-hub" aria-hidden="true"></button>
+            <button class="dpad-btn dpad-right" data-key="ArrowRight" aria-label="Right">▶</button>
+            <button class="dpad-btn dpad-down" data-key="ArrowDown" aria-label="Down">▼</button>
+          </div>
+
+          <div class="system-buttons">
+            <button class="sys-btn" data-key="Escape" aria-label="Pause">SELECT</button>
+            <button class="sys-btn sys-start" data-key="Enter" aria-label="Start">START</button>
+          </div>
+
+          <div class="actions" aria-label="Action buttons">
+            <button class="action-btn action-b" data-key="KeyZ" aria-label="B button"><span>B</span></button>
+            <button class="action-btn action-a" data-key="Space" aria-label="A button"><span>A</span></button>
+          </div>
+        </div>
+
+        <div class="console-foot">
+          <div class="speaker" aria-hidden="true"></div>
+          <div class="slot"><span></span><div class="slot-label">CARTRIDGE SLOT</div></div>
+          <div class="serial">HC100 · REV 2.6</div>
+        </div>
+      </div>
+
+      <div class="under-console">
+        <div class="tip"><span class="tip-key">← ↑ ↓ →</span> or <span class="tip-key">WASD</span> to move &nbsp;·&nbsp; <span class="tip-key">SPACE</span> to act &nbsp;·&nbsp; <span class="tip-key">ESC</span> to pause</div>
+        <button class="link-btn" id="howBtn" type="button">HOW TO PLAY ↗</button>
+      </div>
+    </section>
+
+    <aside class="library" id="library" aria-label="Game library">
+      <div class="lib-head">
+        <div>
+          <div class="lib-title">THE LIBRARY</div>
+          <div class="lib-sub">100 originals. Zero filler.</div>
+        </div>
+        <div class="lib-badge">100</div>
+      </div>
+
+      <div class="lib-tools">
+        <label class="search">
+          <span aria-hidden="true">⌕</span>
+          <input id="search" type="search" placeholder="Search 100 games…" autocomplete="off" spellcheck="false">
+        </label>
+        <div class="genre-scroll" id="genreBar"></div>
+      </div>
+
+      <div class="lib-meta"><span id="resultCount">100 GAMES</span><span class="lib-meta-right">SORTED BY GENRE</span></div>
+      <div class="cart-grid" id="grid"></div>
+      <div class="lib-empty" id="empty" hidden>NO CARTRIDGES FOUND. TRY ANOTHER SEARCH.</div>
+    </aside>
+  </main>
+
+  <footer class="footbar">
+    <span>HAIDER CONSOLE <b>©</b> 2026</span>
+    <span class="foot-hide">MADE FOR PLAY · BUILT FOR THE WEB</span>
+    <a href="https://github.com/sarimmohib/Haider-console" target="_blank" rel="noopener">VIEW ON GITHUB ↗</a>
+  </footer>
+</div>
+
+<div class="modal" id="howModal" hidden>
+  <div class="modal-card">
+    <button class="modal-close" id="howClose" aria-label="Close">×</button>
+    <div class="modal-kicker">FIELD MANUAL</div>
+    <h2>HOW TO PLAY</h2>
+    <div class="manual">
+      <div><b>01 / PICK</b><span>Choose any cartridge from the library. Every game has its own look, rules and 8+ escalating levels — most run forever.</span></div>
+      <div><b>02 / MOVE</b><span>Use arrow keys or WASD on desktop. On touch screens, use the D-pad and A / B buttons under the screen. Many games also support swiping and tapping directly on the screen.</span></div>
+      <div><b>03 / SURVIVE</b><span>Each game tells you its goal on the HUD. Clear the goal to advance to the next level. Miss too often and you lose a life.</span></div>
+      <div><b>04 / CHASE</b><span>High scores, unlocked levels and favourites are saved locally in your browser. Chase the perfect combo.</span></div>
+    </div>
+    <button class="btn btn-go modal-ok" id="howOk" type="button">GOT IT</button>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
